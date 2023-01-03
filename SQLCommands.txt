@@ -1,0 +1,97 @@
+Войти в настройки:
+
+sudo mysql -u root -p
+Docker:
+mysql -h mysql -u root -p
+Все базы данных на sql server:
+
+SHOW DATABASES; 
+Удалить базу:
+
+DROP DATABASE [database name];
+Создать базу данных:
+
+CREATE DATABASE [database name];
+Показать всех пользователей:
+
+SELECT User,Host FROM mysql.user;
+Переменовать пользователя magento в puravita2:
+
+RENAME USER 'magento'@'%' to 'puravita2'@'%';
+damp BD Docker:
+
+mysqldump -h mysql -u root -p magentoloc > puravita_loc.sql
+pass: magento
+damp BD Docker n98-magerun2:
+
+n98-magerun2.phar db:dump --compression="gzip" \
+--force \
+-- var/backups/puravita2_stage_`date +%d-%m-%Y-%H-%M-%S`.sql.gz
+Импорт базы данных из файла:
+
+"mysql -u root -p lashtrays < /home/belvg/Telegram Desktop/lashtrays.sql;
+Docker: 
+mysql -h mysql -u root -p magento < name_db;"
+Импорт базы данных из файла n98-magerun2:
+
+n98-magerun2  db:import  --compression=gzip \
+var/backups/puravita2_live_static_content_03-11-2021-18-17-30.sql.gz
+Выбор таблицы для юзера:
+
+USE  [database name];
+Clear table:
+
+puravita2 - db name
+
+ui_bookmark - table name
+
+ui_bookmark - admin error table clear
+
+``` TRUNCATE TABLE [database name]; ``` ``` TRUNCATE TABLE puravita2.ui_bookmark; ```
+Пивелегии пользователя:
+
+GRANT ALL PRIVILEGES ON syvspring.* to 'syvspring'@'localhost' IDENTIFIED BY 'syvspring' WITH GRANT OPTION;
+Парава на БД пользователю:
+
+GRANT ALL PRIVILEGES ON magento.* to magento;
+зайти проверить есть ли база
+mysql -h mysql -u magento -p
+mysql:
+
+Start
+sudo /etc/init.d/mysql start
+
+Stop:
+sudo /etc/init.d/mysql stop
+
+Restart / reload configs:
+sudo /etc/init.d/mysql restart
+
+Check run status:
+sudo /etc/init.d/mysql status
+
+Вырубить плагин валидации пароля
+UNINSTALL PLUGIN validate_password;
+Привязка пользователя к базе данных:
+http://ithelp21.ru/sozdaty-polyzovatelya-baz-dannh-bazu-dannh-mysql/
+
+Удаление юзеров::
+https://www.cyberciti.biz/faq/how-to-delete-remove-user-account-in-mysql-mariadb/
+
+Команды::
+https://rtfm.co.ua/mysql-commands/
+
+some all:
+
+GRANT ALL PRIVILEGES ON magentodeploy.* to magento;
+mysqldump -h mysql -u root -p magentodeploy > puravita_loc.sql
+mysql -h mysql -u root -p magentodeploystage < puravita_loc.sql
+mysql -h mysql -u root -p magentoloc < puravita_loc.sql
+Add new DB for test
+
+mysql -h mysql -u root -p
+GRANT ALL PRIVILEGES ON test.* to puravita2;
+зайти проверить есть ли база
+mysql -h mysql -u puravita2 -p
+n98-magerun2  db:import  --compression=gzip \
+var/backups/puravita2_dev_pa_1163_16-09-2022-07-33-54.sql.gz
